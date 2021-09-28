@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${add} ? 'Criar um Contato' : 'Editar um Contato'" />
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 th:text="${add} ? 'Criar um Contato:' : 'Editar um Contato:'" />
+    <a th:href="@{/contatos}">Lista de Contatos</a>
+    <br/><br/>
+    <form th:action="${add} ? @{/contatos/add} : @{/contatos/{contatoId}/editar(contatoId=${contatoId})}" th:object="${contato}" method="POST">
+        <table border="0">
+            <tr th:if="${contato.id}">
+                <td>ID</td>
+                <td>:</td>
+                <td th:utext="${contato.id}">...</td>
+            </tr>
+            <tr>
+                <td>Nome</td>
+                <td>:</td>
+                <td><input type="text" th:field="*{nome}" /></td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td>:</td>
+                <td><input type="text" th:field="*{telefone}" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td><input type="text" th:field="*{email}" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="text" th:field="*{endereco1}" size="50" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="text" th:field="*{endereco2}" size="50" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="text" th:field="*{endereco3}" size="50" /></td>
+            </tr>
+            <tr>
+                <td>Cep</td>
+                <td>:</td>
+                <td><input type="text" th:field="*{cep}" /></td>
+            </tr>
+            <tr>
+                <td>Notas</td>
+                <td>:</td>
+                <td><textarea th:field="*{nota}" rows="4" cols="50" /></td>
+            </tr>
+        </table>
+        <input type="submit" th:value="${add} ? 'Criar' : 'Atualizar'" />
+    </form>
+    <br/>
+    <div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exibir Contato</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <h1>Exibir Contato</h1>
+    <a th:href="@{/contatos}">Lista de Contatos</a>
+    <br/><br/>
+    <div th:if="${contato}">
+        <table border="0">
+            <tr>
+                <td>ID</td>
+                <td>:</td>
+                <td th:utext="${contato.id}">...</td>
+            </tr>
+            <tr>
+                <td>Nome</td>
+                <td>:</td>
+                <td th:utext="${contato.nome}">...</td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td>:</td>
+                <td th:utext="${contato.telefone}">...</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td th:utext="${contato.email}">...</td>
+            </tr>
+            <tr>
+                <td>Endereço</td>
+                <td>:</td>
+                <td th:utext="${contato.endereco1}">...</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td th:utext="${contato.endereco2}">...</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td th:utext="${contato.endereco3}">...</td>
+            </tr>
+            <tr>
+                <td>Cep</td>
+                <td>:</td>
+                <td th:utext="${contato.cep}">...</td>
+            </tr>
+            <tr>
+                <td>Notas</td>
+                <td>:</td>
+                <td th:utext="${contato.nota}">...</td>
+            </tr>
+        </table>
+        <br/><br/>
+        <div th:if="not ${permitirDeletar}">
+            <a th:href="@{/contatos/{contatoId}/editar(contatoId=${contato.id})}">Editar</a> |
+            <a th:href="@{/contatos/{contatoId}/deletar(contatoId=${contato.id})}">Deletar</a>
+        </div>
+        <form th:if="${permitirDeletar}" th:action="@{/contatos/{contatoId}/deletar(contatoId=${contato.id})}" method="POST">
+            Deletar esse Contato? <input type="submit" th:value="Sim" />
+        </form>
+    </div>
+    <div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+</body>
+
+</html>

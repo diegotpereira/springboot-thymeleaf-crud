@@ -76,7 +76,7 @@ public class ContatoService {
         }
     }
 
-    public Long contar() {
+    public Long count() {
         return contatoRepositorio.count();
     }
 }
